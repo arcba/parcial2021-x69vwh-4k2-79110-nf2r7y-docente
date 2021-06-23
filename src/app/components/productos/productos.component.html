@@ -1,0 +1,195 @@
+<h3>{{Titulo}} <small>{{TituloAccionABMC[AccionABMC]}}</small></h3>
+<div class="row justify-content-center m-3" *ngIf="AccionABMC == 'L'">
+<button type="button" class="btn btn-primary" (click)="Agregar()">
+<span class="fas fa-plus"> </span>
+Agregar
+</button>
+</div>
+<div class="container" *ngIf="AccionABMC == 'L'">
+<div>
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+<th class="text-center">ProductoID</th>
+<th class="text-center">ProductoNombre</th>
+<th class="text-center">ProductoFechaAlta</th>
+<th class="text-center">ProductoStock</th>
+</tr>
+</thead>
+
+<tbody>
+<tr *ngFor="let Producto of Producto">
+<td>{{Producto.ProductoID}}</td>
+<td>{{Producto.ProductoNombre}}</td>
+<td>{{Producto.ProductoFechaAlta|date:'dd/MM/yyyy'}}</td>
+<td>{{Producto.ProductoStock}}</td>
+<td style="text-align: center;">
+
+<button type="button" class="btn btn-sm btn-outline-
+primary" title="Ver" (click)="(Producto)">
+
+<span class="fas fa-eye"></span>
+</button>
+
+<button type="button" class="btn btn-sm btn-outline-
+primary" title="Modificar" (click)="Modificar(Producto)">
+
+<span class="fas fa-pencil-alt"></span>
+</button>
+<button type="button" class="btn btn-sm btn-outline-danger"
+title="Eliminar" (click)="Eliminar(Producto)">
+<span class="fas fa-times"></span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<form name="FormReg" [formGroup]='FormReg' *ngIf="AccionABMC != 'L'" class="bg
+-light">
+<fieldset [disabled]="AccionABMC==='C'">
+
+<!-- ProductoID -->
+<div class="form-group row">
+
+<label class="col-form-label col-sm-2 col-sm-offset-
+2" for="ProductoID">ProductoID <span
+
+class="text-danger">*</span></label>
+<div class="col-sm-6">
+
+<input type="text" name="ProductoID" class="form-
+control" formControlName="ProductoID" [ngClass]="{'is-
+invalid': (FormReg.controls.ProductoID.touched || submitted)
+
+&& FormReg.controls.ProductoID.errors}" />
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.ProductoID.touched || submitted)
+
+&& FormReg.controls.ProductoID.errors?.required"
+>
+Dato requerido.
+</span>
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.ProductoID.touched || submitted)
+
+&& FormReg.controls.ProductoID.errors?.pattern">
+Dato numérico.
+</span>
+</div>
+</div>
+<!-- NombreProducto -->
+<div class="form-group row">
+
+<label class="col-form-label col-sm-2 col-sm-offset-
+2" for="NombreProducto">NombreProducto <span
+
+class="text-danger">*</span></label>
+<div class="col-sm-6">
+
+<input type="text" class="form-
+control" name="NombreProducto" formControlName="NombreProducto" [ngClass]="{'i
+
+s-invalid': (FormReg.controls.NombreProducto.touched || submitted)
+&& FormReg.controls.NombreProducto.errors}" />
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.NombreProducto.touched || submitted)
+
+&& FormReg.controls.NombreProducto.errors?.required">
+Dato requerido.
+</span>
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.NombreProducto.touched || submitted)
+
+&& FormReg.controls.NombreProducto.errors?.pattern">
+Nombre del producto
+</span>
+</div>
+</div>
+<!-- FechaAlta -->
+<div class="form-group row">
+
+<label class="col-form-label col-sm-2 col-sm-offset-
+2" for="FechaAlta">FechaAlta <span
+
+class="text-danger">*</span></label>
+<div class="col-sm-6">
+
+<input type="text" class="form-
+control" formControlName="FechaAlta" [ngClass]="{'is-
+invalid': (FormReg.controls.FechaAlta.touched || submitted)
+
+&& FormReg.controls.FechaAlta.errors}"/>
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.FechaAlta.touched || submitted)
+
+&& FormReg.controls.FechaAlta.errors?.required">
+Dato requerido.
+</span>
+
+<span class="text-danger" *ngIf="(FormReg.controls.FechaAlta.touched || submitted) 
+&& FormReg.controls.FechaAlta.errors?.pattern">
+ Dato fecha, formato dd/mm/aaaa.
+</span>
+</div>
+</div>
+</fieldset>
+<div class="row justify-content-center">
+
+<button type="button" *ngIf="AccionABMC!=='C'" class="btn btn-
+primary" (click)="Grabar()">
+
+<span class="fas fa-check"></span> Grabar
+</button>
+&nbsp;
+<button type="button" class="btn btn-warning" (click)="Volver()">
+
+<span class="fas fa-
+undo"></span> {{AccionABMC=='C' ? 'Volver' : 'Cancelar'}}
+
+</button>
+</div>
+
+<!-- ProductoStock -->
+<div class="form-group row">
+
+<label class="col-form-label col-sm-2 col-sm-offset-
+2" for="ProductoStock">ProductoStock <span
+
+class="text-danger">*</span></label>
+<div class="col-sm-6">
+
+<input type="text" class="form-
+control" name="ProductoStock" formControlName="ProductoStock" [ngClass]="{'i
+
+s-invalid': (FormReg.controls.ProductoStock.touched || submitted)
+&& FormReg.controls.ProductoStock.errors}" />
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.ProductoStock.touched || submitted)
+
+&& FormReg.controls.ProductoStock.errors?.required">
+Dato requerido.
+</span>
+
+<span class="text-
+danger" *ngIf="(FormReg.controls.ProductoStock.touched || submitted)
+
+&& FormReg.controls.ProductoStock.errors?.pattern">
+Stock del producto
+
+<!--texto: Revisar los datos ingresados...-->
+<div id="divMsjFormRegistro" *ngIf="submitted && FormReg.invalid" class="row
+alert alert-danger">
+<span class="fas fa-exclamation-sign"></span>{{Mensajes['RD']}}
+</div>
+</span>
+</div>
+</div>
+</form> 
